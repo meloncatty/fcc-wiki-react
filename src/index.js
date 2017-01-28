@@ -5,20 +5,36 @@ import './index.css';
 
 var SearchResults = React.createClass({
   render: function() {
-    var resultsEntries = this.props.entries;
+    return (
+      <ul>
+        {this.props.entries.map((x, i) => <SearchResult key={i} result={x.text} />)}
+      </ul>
+      
+      )
+    
+    // var resultsEntries = this.props.entries // entries is an array not an object
 
-    function displayResults(results) {
-      return <li key={results.key}>{results.text}</li>
-    }
+    // function displayResults(results) {
+    //   return (<li key={results.key}>{results.text}</li>)
+    // }
 
-    var listResults = resultsEntries.map(displayResults);
+    // var listResults = resultsEntries.map(displayResults)
+    // console.log(listResults)
+
+    // return listResults
+    
   }
 });
+
+const SearchResult = ({key, result}) => 
+  (<li key={ key }>{ result }</li>)
+  
+  
 
 var SearchArea = React.createClass({
   getInitialState: function() {
     return {
-      results: []
+      results: [{key: 1, text: 'some test text'}]
     };
   },
   addResult: function(e){
@@ -30,7 +46,7 @@ var SearchArea = React.createClass({
       }
     );
     this.setState({
-      results: resultArray
+      results: resultArray 
     });
     this._inputElement.value = "";
     e.preventDevault(); //keeps from triggering our browser's default POST behavior(which might refresh your page), and instead get our desired behavior
